@@ -1,0 +1,26 @@
+# version: '3.5'
+
+services:
+  jupyter:
+    container_name: rstudio_jupyter_notebook_container
+  
+    build:
+      context: .
+      # args:
+      #   - REFINEVERSION=$REFINEVERSION
+    environment:
+      JUPYTER_TOKEN: "$JUPYTER_TOKEN"
+    ports:
+      - "8588:8888"
+    networks:
+      - jupyternet_rstudio
+    volumes:
+      - ./jupyter_notebook_config.py:/home/jovyan/.jupyter/jupyter_notebook_config.py
+    restart: unless-stopped
+
+networks:
+  jupyternet_rstudio:
+    driver: bridge
+
+volumes:
+  jupyter:
